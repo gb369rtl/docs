@@ -474,10 +474,12 @@ PUT _ingest/pipeline/concat_fields_pipeline
   "processors": [
     {
       "script": {
+######
         "source": """
           // Combine the app field also
           ctx.combined_field = ctx.serviceName + " " + ctx.level + " " + ctx.message + " " + ctx.app;
         """
+#######
       }
     },
     {
@@ -568,7 +570,7 @@ POST gbtqa-idms/_update_by_query?pipeline=concat_fields_pipeline&wait_for_comple
 - Use Elasticsearch monitoring.
 
 
-## **Step 8: Summary**
+## **Step 9: Summary**
 
 1. Designed for Scalability:
 - Handles 100M+ records efficiently.
