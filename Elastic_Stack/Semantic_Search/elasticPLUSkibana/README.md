@@ -1,4 +1,4 @@
-# **Semantic Search Implementation in Elasticsearch**
+# **Semantic Search Implementation in Elasticsearch with Kibana**
 
 ## **Objective**
 The task is to implement semantic search in Elasticsearch with the following goals:  
@@ -12,16 +12,17 @@ The task is to implement semantic search in Elasticsearch with the following goa
 ## **Prerequisites**
 
 ### **Requirements**
-1. Elasticsearch cluster with support for:  
+1. Your data also in Elastic search if not then perform operations and do that
+2. Elasticsearch cluster with support for:  
    - `dense_vector` field type  
    - k-Nearest Neighbors (kNN) search  
    - Machine Learning features  
 
-2. **ELSER Model Deployment**:  
+3. **ELSER Model Deployment**:  
    Ensure the `.elser_model_2_linux-x86_64` model is installed and deployed.  
    - Deploy via Kibana: Navigate to **Machine Learning > Trained Models** and deploy `.elser_model_2_linux-x86_64`.  
 
-3. Ensure you have sufficient resources for large data updates (memory, CPU, and disk).  
+4. Ensure you have sufficient resources for large data updates (memory, CPU, and disk).  
 
 ---
 
