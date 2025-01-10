@@ -278,7 +278,7 @@ POST /_reindex
 ### **Option 2: Update in the existing index**
 
 Reprocess all documents in the existing index.
-## For Existing Data: Use update_by_query to reprocess all documents in the index:
+- For Existing Data: Use update_by_query to reprocess all documents in the index:
 
 #### **Example Request**
 ```bash
@@ -293,7 +293,7 @@ POST gbtqa-idms/_update_by_query?pipeline=concat_fields_pipeline
 
 ### **Option 3: Automate the process of update the incoming data in existing index**
 
-## For Incoming Data: Attach the pipeline to the index for automatic processing:
+- For Incoming Data: Attach the pipeline to the index for automatic processing:
 
 #### **Example Request**
 ```bash
