@@ -147,7 +147,7 @@ The pipeline processes incoming documents to:
 Use the following code to define the pipeline:
 
 ```bash
-PUT _ingest/pipeline/concat_fields_pipeline
+PUT _ingest/pipeline/<(Pipeline_For_Main_Embedding)>
 {
   "processors": [
     {
@@ -211,7 +211,7 @@ Test the pipeline using the _simulate API to ensure that:
 ### **Pipeline Simulation**
 
 ```bash
-POST _ingest/pipeline/concat_fields_pipeline/_simulate
+POST _ingest/pipeline/<(Pipeline_For_Main_Embedding)>/_simulate
 {
   "docs": [
     {
@@ -262,15 +262,15 @@ The Reindex API allows you to copy documents from one index to another while app
 POST /_reindex
 {
   "source": {
-    "index": "gbtqa-idms",
+    "index": "<(existing_index_name)>",
     "query": {
       "match_all": {}
     },
     "size": 1000
   },
   "dest": {
-    "index": "gbtqa-idms-dev-test",
-    "pipeline": "gbtqa_idms_fields_pipeline"
+    "index": "<(new_index_name)>",
+    "pipeline": "<(Pipeline_For_Main_Embedding)>"
   }
 }
 ```
@@ -282,7 +282,7 @@ Reprocess all documents in the existing index.
 
 #### **Example Request**
 ```bash
-POST gbtqa-idms/_update_by_query?pipeline=concat_fields_pipeline
+POST <(existing_index_name)>/_update_by_query?pipeline=<(Pipeline_For_Main_Embedding)>
 {
   "query": {
     "match_all": {}
@@ -297,9 +297,9 @@ POST gbtqa-idms/_update_by_query?pipeline=concat_fields_pipeline
 
 #### **Example Request**
 ```bash
-PUT gbtqa-idms/_settings
+PUT <(existing_index_name)>/_settings
 {
-  "index.default_pipeline": "concat_fields_pipeline"
+  "index.default_pipeline": "<(Pipeline_For_Main_Embedding)>"
 }
 ```
 
@@ -311,7 +311,7 @@ PUT gbtqa-idms/_settings
    dimension). The pipeline uses a script processor for this transformation.
 
    ```bash
-PUT _ingest/pipeline/test_fields_pipeline
+PUT _ingest/pipeline/<(Input_Conversion_Pipeline)>
 {
   "processors": [
     {
@@ -364,7 +364,7 @@ PUT _ingest/pipeline/test_fields_pipeline
    predicted_value object with your generated embeddings.
 
    ```bash
-POST _ingest/pipeline/test_fields_pipeline/_simulate
+POST _ingest/pipeline/<(Input_Conversion_Pipeline)>/_simulate
     {
       "docs": [
         {
@@ -411,7 +411,7 @@ POST _ingest/pipeline/test_fields_pipeline/_simulate
     Use the kNN query to retrieve all fields for the top k results. Replace query_vector with your processed vector.
 
    ```bash
-   POST gbtqa-idms-test/_knn_search
+   POST <(index_name)>/_knn_search
   {
     "knn": {
       "field": "text_expansion",
@@ -426,7 +426,7 @@ POST _ingest/pipeline/test_fields_pipeline/_simulate
     Specify the fields you want to retrieve in the _source section.
 
    ```bash
-   POST gbtqa-idms-dev-test/_search
+   POST <(index_name)>/_search
   {
     "knn": {
       "field": "text_expansion",
@@ -469,7 +469,7 @@ Suppose the client wants to add a new field called `app` to the `combined_field`
 Here is how you would update the pipeline:
 
 ```bash
-PUT _ingest/pipeline/concat_fields_pipeline
+PUT _ingest/pipeline/<(Pipeline_For_Main_Embedding)>
 {
   "processors": [
     {
@@ -552,7 +552,7 @@ update_by_query runs as a background task in Elasticsearch. You can monitor and 
 
 #### **Start the Update Task**
 ```bash
-POST gbtqa-idms/_update_by_query?pipeline=concat_fields_pipeline&wait_for_completion=false
+POST <(existing_index_name)>/_update_by_query?pipeline=<(Pipeline_For_Main_Embedding)>&wait_for_completion=false
 {
   "query": {
     "match_all": {}
@@ -565,19 +565,19 @@ POST gbtqa-idms/_update_by_query?pipeline=concat_fields_pipeline&wait_for_comple
 ## **Step 8: Visualization**
 
 1. Kibana Dashboards:
-- Create visualizations for kNN results.
+   - Create visualizations for kNN results.
 2. Monitor Pipeline Performance:
-- Use Elasticsearch monitoring.
+   - Use Elasticsearch monitoring.
 
 
 ## **Step 9: Summary**
 
 1. Designed for Scalability:
-- Handles 100M+ records efficiently.
+   - Handles 100M+ records efficiently.
 2. Adaptable to Changes:
-- Supports adding fields dynamically.
+   - Supports adding fields dynamically.
 3. Optimized for Performance:
-- Efficient embeddings and kNN searches.
+   - Efficient embeddings and kNN searches.
 
 
 
